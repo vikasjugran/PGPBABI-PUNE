@@ -1,2 +1,0 @@
-# PGPBABI-PUNE
-PGPBABI Pune 2017 - 2018 Batch
