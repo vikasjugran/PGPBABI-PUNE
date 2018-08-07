@@ -47,3 +47,12 @@ mydataset[,3]  # Display all rows for 3rd column
 mydataset[2:5,3] # Display rows from 2 to 5 for 3rd column
 mydataset[1:3,c(1,3)] # Display row from 1 to 3 for column 1 & 3
 mydataset[,-c(2,3)]
+
+# Reading CSV file and sorting based on different columns
+mydata <- read.csv('claims.csv')
+View(mydata)
+summary(mydata)
+sortdata <-mydata[order(mydata$age),]
+sortdata1 <-mydata[order(mydata$age,mydata$claim),]
+sortdata1 <-mydata[order(-mydata$age,mydata$claim),]
+
