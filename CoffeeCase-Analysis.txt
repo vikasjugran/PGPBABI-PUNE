@@ -1,0 +1,361 @@
+The coffee bargains of : 2752 households
+Total bargains was registered (W.Germany):  130986 
+Period :  between 1.1.1988 and 31.12.1990
+
+• Which brands of coffee are more popular? Given a brand, are all variants equally preferred?
+ANSWER:
+By seeing the summary data, brad Andere Kaffeemarken is most popular with 35548 out of 130986
+
+• What are the prices of different brands of coffee?
+• How frequently does a household buy coffee? How many packets of coffee are bought at a time?
+• What are the factors that have an impact on a household’s coffee purchase pattern? Does brand preference depend on household size? Does purchase depend on a person’s income or education level?
+
+There may be many other related and relevant questions that a company may be interested in. But before we get to do that, we need to ‘prepare’ the data and do some simple checks. The list is endless. However, a starting point could be the following:
+• Are there any variables/columns you think will be eventually irrelevant for the study? Why?
+• Can you possibly identify some outliers?
+• For better analysis do you think a few brand variants needs to be clubbed together?
+• Can you do some probability estimates- Say what is the probability that a randomly chosen household belongs to the top two social levels? What is the probability that households belonging to the top two social levels buy more expensive coffee?
+
+You are expected to discuss on the above-mentioned points. You are also expected to identify a few (between 2 and 4) relevant business questions, aligning data against each question or pointing out if any relevant data is not available. Request you to participate and share your insights.
+
+-------------------------------------------------------------------
+
+> summary(coffee_data)
+  No_of_Packet   Price_per_Packet      IDNo          Brand                     Brand_Name    Days_between_Purchase
+ Min.   :1.000   Min.   :1.000    Min.   :   1   Min.   :1.000   Andere Kaffeemarken:35548   Min.   :  1.00       
+ 1st Qu.:1.000   1st Qu.:2.000    1st Qu.:1663   1st Qu.:3.000   Tchibo other       :20055   1st Qu.:  6.00       
+ Median :1.000   Median :2.000    Median :3349   Median :6.000   Jacobs Krönung     :15662   Median :  9.00       
+ Mean   :1.249   Mean   :2.033    Mean   :3385   Mean   :5.804   Aldi               :13832   Mean   : 15.14       
+ 3rd Qu.:1.000   3rd Qu.:3.000    3rd Qu.:5035   3rd Qu.:9.000   Eduscho other      :13274   3rd Qu.: 17.00       
+ Max.   :3.000   Max.   :3.000    Max.   :7251   Max.   :9.000   Aldi other         : 9370   Max.   :741.00       
+                                                                 (Other)            :23245                        
+      Age             SEC                      SEC_Name         Income       Household_Sz   Price_Conscious
+ Min.   :1.000   Min.   :1.000   lower class       : 9599   Min.   :1.000   Min.   :1.000   Min.   :1.00   
+ 1st Qu.:3.000   1st Qu.:2.000   lower middle class:25830   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:1.00   
+ Median :4.000   Median :3.000   middle class      :49052   Median :2.000   Median :2.000   Median :1.00   
+ Mean   :3.766   Mean   :2.804   upper class       :24203   Mean   :2.396   Mean   :2.647   Mean   :1.85   
+ 3rd Qu.:5.000   3rd Qu.:4.000   upper middle class:22302   3rd Qu.:3.000   3rd Qu.:4.000   3rd Qu.:2.00   
+ Max.   :5.000   Max.   :5.000                              Max.   :4.000   Max.   :5.000   Max.   :4.00   
+                                                                                                           
+                 Price_Conscious_Name   Education                      Education_No_of_Yrs    Loyalty     
+ a little                  :25694     Min.   :1.000   high-school / university   :55237    Min.   :1.000  
+ distinctly price-conscious:25173     1st Qu.:1.000   intermediate high school   :38641    1st Qu.:1.000  
+ not at all                :75051     Median :2.000   nine-year elementary school:37108    Median :1.000  
+ price-conscious           : 5068     Mean   :2.138                                        Mean   :1.427  
+                                      3rd Qu.:3.000                                        3rd Qu.:2.000  
+                                      Max.   :3.000                                        Max.   :2.000  
+                                                     
+
+                                                     
+   Loyalty_YesNo  
+ loyal    :75057  
+ not loyal:55929  
+-------------------------------------------------------------------------
+by(coffee_data,INDICES = Brand_Name,FUN = summary )
+
+
+Brand_Name: Aldi
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name   
+ Min.   :1.000   Min.   :1.000    Min.   :  26   Min.   :3   Aldi               :13832  
+ 1st Qu.:1.000   1st Qu.:1.000    1st Qu.:1533   1st Qu.:3   Aldi other         :    0  
+ Median :1.000   Median :2.000    Median :3033   Median :3   Andere Kaffeemarken:    0  
+ Mean   :1.233   Mean   :1.645    Mean   :3106   Mean   :3   Eduscho Gala       :    0  
+ 3rd Qu.:1.000   3rd Qu.:2.000    3rd Qu.:4585   3rd Qu.:3   Eduscho other      :    0  
+ Max.   :3.000   Max.   :2.000    Max.   :7249   Max.   :3   Jacobs Krönung     :    0  
+                                                             (Other)            :    0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       :1071   Min.   :1.000  
+ 1st Qu.:  7.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class:3290   1st Qu.:2.000  
+ Median : 10.00        Median :4.000   Median :3.000   middle class      :5919   Median :2.000  
+ Mean   : 15.62        Mean   :3.728   Mean   :3.015   upper class       :1670   Mean   :2.424  
+ 3rd Qu.: 18.00        3rd Qu.:5.000   3rd Qu.:4.000   upper middle class:1882   3rd Qu.:3.000  
+ Max.   :741.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  :2398      Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:2650      1st Qu.:2.000  
+ Median :2.000   Median :1.000   not at all                :8478      Median :3.000  
+ Mean   :2.644   Mean   :1.792   price-conscious           : 306      Mean   :2.461  
+ 3rd Qu.:4.000   3rd Qu.:2.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo 
+ high-school / university   :8217     Min.   :1.000   loyal    :8608  
+ intermediate high school   :3775     1st Qu.:1.000   not loyal:5224  
+ nine-year elementary school:1840     Median :1.000                   
+                                      Mean   :1.378                   
+                                      3rd Qu.:2.000                   
+                                      Max.   :2.000                   
+                                                                      
+------------------------------------------------------------------------------ 
+Brand_Name: Aldi other
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name  
+ Min.   :1.000   Min.   :1.000    Min.   :   1   Min.   :4   Aldi other         :9370  
+ 1st Qu.:1.000   1st Qu.:1.000    1st Qu.:1458   1st Qu.:4   Aldi               :   0  
+ Median :1.000   Median :1.000    Median :3141   Median :4   Andere Kaffeemarken:   0  
+ Mean   :1.351   Mean   :1.215    Mean   :3242   Mean   :4   Eduscho Gala       :   0  
+ 3rd Qu.:2.000   3rd Qu.:1.000    3rd Qu.:5062   3rd Qu.:4   Eduscho other      :   0  
+ Max.   :3.000   Max.   :2.000    Max.   :7251   Max.   :4   Jacobs Krönung     :   0  
+                                                             (Other)            :   0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       : 555   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class:2461   1st Qu.:2.000  
+ Median :  9.00        Median :4.000   Median :3.000   middle class      :3944   Median :2.000  
+ Mean   : 14.48        Mean   :3.621   Mean   :2.978   upper class       :1367   Mean   :2.374  
+ 3rd Qu.: 16.00        3rd Qu.:4.000   3rd Qu.:4.000   upper middle class:1043   3rd Qu.:3.000  
+ Max.   :494.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  :1742      Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:2116      1st Qu.:2.000  
+ Median :3.000   Median :1.000   not at all                :5242      Median :3.000  
+ Mean   :2.749   Mean   :1.921   price-conscious           : 270      Mean   :2.509  
+ 3rd Qu.:4.000   3rd Qu.:3.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo 
+ high-school / university   :5961     Min.   :1.000   loyal    :5263  
+ intermediate high school   :2214     1st Qu.:1.000   not loyal:4107  
+ nine-year elementary school:1195     Median :1.000                   
+                                      Mean   :1.438                   
+                                      3rd Qu.:2.000                   
+                                      Max.   :2.000                   
+                                                                      
+------------------------------------------------------------------------------ 
+Brand_Name: Andere Kaffeemarken
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name   
+ Min.   :1.000   Min.   :1.000    Min.   :   1   Min.   :9   Andere Kaffeemarken:35548  
+ 1st Qu.:1.000   1st Qu.:1.000    1st Qu.:1772   1st Qu.:9   Aldi               :    0  
+ Median :1.000   Median :2.000    Median :3496   Median :9   Aldi other         :    0  
+ Mean   :1.313   Mean   :1.939    Mean   :3476   Mean   :9   Eduscho Gala       :    0  
+ 3rd Qu.:1.000   3rd Qu.:2.000    3rd Qu.:5063   3rd Qu.:9   Eduscho other      :    0  
+ Max.   :3.000   Max.   :3.000    Max.   :7251   Max.   :9   Jacobs Krönung     :    0  
+                                                             (Other)            :    0  
+ Days_between_Purchase      Age             SEC                      SEC_Name         Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       : 2825   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class: 5968   1st Qu.:1.000  
+ Median : 10.00        Median :4.000   Median :3.000   middle class      :13432   Median :2.000  
+ Mean   : 15.68        Mean   :3.817   Mean   :2.746   upper class       : 7336   Mean   :2.415  
+ 3rd Qu.: 18.00        3rd Qu.:5.000   3rd Qu.:3.000   upper middle class: 5987   3rd Qu.:3.000  
+ Max.   :627.00        Max.   :5.000   Max.   :5.000                              Max.   :4.000  
+                                                                                                 
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  : 6969     Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious: 6974     1st Qu.:1.000  
+ Median :2.000   Median :1.000   not at all                :19999     Median :2.000  
+ Mean   :2.601   Mean   :1.875   price-conscious           : 1606     Mean   :2.121  
+ 3rd Qu.:3.000   3rd Qu.:2.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo  
+ high-school / university   :14454    Min.   :1.000   loyal    :21817  
+ intermediate high school   :10955    1st Qu.:1.000   not loyal:13731  
+ nine-year elementary school:10139    Median :1.000                    
+                                      Mean   :1.386                    
+                                      3rd Qu.:2.000                    
+                                      Max.   :2.000                    
+                                                                       
+------------------------------------------------------------------------------ 
+Brand_Name: Eduscho Gala
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name  
+ Min.   :1.000   Min.   :1.0      Min.   :  20   Min.   :5   Eduscho Gala       :6362  
+ 1st Qu.:1.000   1st Qu.:2.0      1st Qu.:1728   1st Qu.:5   Aldi               :   0  
+ Median :1.000   Median :2.0      Median :3194   Median :5   Aldi other         :   0  
+ Mean   :1.124   Mean   :2.3      Mean   :3375   Mean   :5   Andere Kaffeemarken:   0  
+ 3rd Qu.:1.000   3rd Qu.:3.0      3rd Qu.:5051   3rd Qu.:5   Eduscho other      :   0  
+ Max.   :3.000   Max.   :3.0      Max.   :7251   Max.   :5   Jacobs Krönung     :   0  
+                                                             (Other)            :   0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       : 515   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class: 980   1st Qu.:1.000  
+ Median :  9.00        Median :4.000   Median :3.000   middle class      :2313   Median :3.000  
+ Mean   : 14.08        Mean   :3.722   Mean   :2.724   upper class       :1213   Mean   :2.495  
+ 3rd Qu.: 16.00        3rd Qu.:5.000   3rd Qu.:3.000   upper middle class:1341   3rd Qu.:3.000  
+ Max.   :553.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education   
+ Min.   :1.000   Min.   :1.000   a little                  :1370      Min.   :1.00  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:1471      1st Qu.:1.00  
+ Median :3.000   Median :1.000   not at all                :3337      Median :2.00  
+ Mean   :2.801   Mean   :1.967   price-conscious           : 184      Mean   :2.05  
+ 3rd Qu.:4.000   3rd Qu.:3.000                                        3rd Qu.:3.00  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.00  
+                                                                                    
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo 
+ high-school / university   :2388     Min.   :1.000   loyal    :2816  
+ intermediate high school   :1901     1st Qu.:1.000   not loyal:3546  
+ nine-year elementary school:2073     Median :2.000                   
+                                      Mean   :1.557                   
+                                      3rd Qu.:2.000                   
+                                      Max.   :2.000                   
+                                                                      
+------------------------------------------------------------------------------ 
+Brand_Name: Eduscho other
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name   
+ Min.   :1.000   Min.   :1.000    Min.   :   8   Min.   :6   Eduscho other      :13274  
+ 1st Qu.:1.000   1st Qu.:2.000    1st Qu.:1975   1st Qu.:6   Aldi               :    0  
+ Median :1.000   Median :3.000    Median :3474   Median :6   Aldi other         :    0  
+ Mean   :1.144   Mean   :2.386    Mean   :3523   Mean   :6   Andere Kaffeemarken:    0  
+ 3rd Qu.:1.000   3rd Qu.:3.000    3rd Qu.:5179   3rd Qu.:6   Eduscho Gala       :    0  
+ Max.   :3.000   Max.   :3.000    Max.   :7251   Max.   :6   Jacobs Krönung     :    0  
+                                                             (Other)            :    0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       : 807   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class:1888   1st Qu.:2.000  
+ Median :  9.00        Median :4.000   Median :3.000   middle class      :5003   Median :3.000  
+ Mean   : 14.27        Mean   :3.817   Mean   :2.608   upper class       :3129   Mean   :2.542  
+ 3rd Qu.: 17.00        3rd Qu.:5.000   3rd Qu.:3.000   upper middle class:2447   3rd Qu.:3.000  
+ Max.   :570.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  :2746      Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:2904      1st Qu.:1.000  
+ Median :2.000   Median :1.000   not at all                :6835      Median :2.000  
+ Mean   :2.625   Mean   :1.982   price-conscious           : 789      Mean   :1.978  
+ 3rd Qu.:3.000   3rd Qu.:3.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo 
+ high-school / university   :4599     Min.   :1.000   loyal    :7551  
+ intermediate high school   :3790     1st Qu.:1.000   not loyal:5723  
+ nine-year elementary school:4885     Median :1.000                   
+                                      Mean   :1.431                   
+                                      3rd Qu.:2.000                   
+                                      Max.   :2.000                   
+                                                                      
+------------------------------------------------------------------------------ 
+Brand_Name: Jacobs Krönung
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name   
+ Min.   :1.000   Min.   :1.000    Min.   :   8   Min.   :1   Jacobs Krönung     :15662  
+ 1st Qu.:1.000   1st Qu.:2.000    1st Qu.:1545   1st Qu.:1   Aldi               :    0  
+ Median :1.000   Median :2.000    Median :3102   Median :1   Aldi other         :    0  
+ Mean   :1.402   Mean   :2.188    Mean   :3273   Mean   :1   Andere Kaffeemarken:    0  
+ 3rd Qu.:2.000   3rd Qu.:2.000    3rd Qu.:4908   3rd Qu.:1   Eduscho Gala       :    0  
+ Max.   :3.000   Max.   :3.000    Max.   :7249   Max.   :1   Eduscho other      :    0  
+                                                             (Other)            :    0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       :1420   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class:3498   1st Qu.:1.000  
+ Median :  8.00        Median :4.000   Median :3.000   middle class      :5520   Median :2.000  
+ Mean   : 15.55        Mean   :3.913   Mean   :2.887   upper class       :2880   Mean   :2.288  
+ 3rd Qu.: 17.00        3rd Qu.:5.000   3rd Qu.:4.000   upper middle class:2344   3rd Qu.:3.000  
+ Max.   :714.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  :2946      Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:2558      1st Qu.:1.000  
+ Median :2.000   Median :1.000   not at all                :9663      Median :2.000  
+ Mean   :2.539   Mean   :1.741   price-conscious           : 495      Mean   :2.024  
+ 3rd Qu.:3.000   3rd Qu.:2.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty       Loyalty_YesNo 
+ high-school / university   :5305     Min.   :1.00   loyal    :8308  
+ intermediate high school   :5433     1st Qu.:1.00   not loyal:7354  
+ nine-year elementary school:4924     Median :1.00                   
+                                      Mean   :1.47                   
+                                      3rd Qu.:2.00                   
+                                      Max.   :2.00                   
+                                                                     
+------------------------------------------------------------------------------ 
+Brand_Name: Jacobs other
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name  
+ Min.   :1.000   Min.   :1.000    Min.   :   1   Min.   :2   Jacobs other       :8872  
+ 1st Qu.:1.000   1st Qu.:2.000    1st Qu.:1571   1st Qu.:2   Aldi               :   0  
+ Median :1.000   Median :2.000    Median :3151   Median :2   Aldi other         :   0  
+ Mean   :1.281   Mean   :2.079    Mean   :3343   Mean   :2   Andere Kaffeemarken:   0  
+ 3rd Qu.:1.000   3rd Qu.:2.000    3rd Qu.:4936   3rd Qu.:2   Eduscho Gala       :   0  
+ Max.   :3.000   Max.   :3.000    Max.   :7249   Max.   :2   Eduscho other      :   0  
+                                                             (Other)            :   0  
+ Days_between_Purchase      Age            SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.00   Min.   :1.000   lower class       : 748   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.00   1st Qu.:2.000   lower middle class:1804   1st Qu.:2.000  
+ Median : 10.00        Median :4.00   Median :3.000   middle class      :3362   Median :2.000  
+ Mean   : 16.17        Mean   :3.72   Mean   :2.852   upper class       :1655   Mean   :2.413  
+ 3rd Qu.: 19.00        3rd Qu.:5.00   3rd Qu.:4.000   upper middle class:1303   3rd Qu.:3.000  
+ Max.   :394.00        Max.   :5.00   Max.   :5.000                             Max.   :4.000  
+                                                                                               
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  :1631      Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:1569      1st Qu.:1.000  
+ Median :2.000   Median :1.000   not at all                :5345      Median :2.000  
+ Mean   :2.509   Mean   :1.788   price-conscious           : 327      Mean   :2.079  
+ 3rd Qu.:3.000   3rd Qu.:2.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo 
+ high-school / university   :3490     Min.   :1.000   loyal    :3500  
+ intermediate high school   :2594     1st Qu.:1.000   not loyal:5372  
+ nine-year elementary school:2788     Median :2.000                   
+                                      Mean   :1.606                   
+                                      3rd Qu.:2.000                   
+                                      Max.   :2.000                   
+                                                                      
+------------------------------------------------------------------------------ 
+Brand_Name: Tchibo Feine Milde
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name  
+ Min.   :1.000   Min.   :1.000    Min.   :   8   Min.   :7   Tchibo Feine Milde :8011  
+ 1st Qu.:1.000   1st Qu.:2.000    1st Qu.:2004   1st Qu.:7   Aldi               :   0  
+ Median :1.000   Median :2.000    Median :4047   Median :7   Aldi other         :   0  
+ Mean   :1.109   Mean   :2.216    Mean   :3680   Mean   :7   Andere Kaffeemarken:   0  
+ 3rd Qu.:1.000   3rd Qu.:3.000    3rd Qu.:5324   3rd Qu.:7   Eduscho Gala       :   0  
+ Max.   :3.000   Max.   :3.000    Max.   :7251   Max.   :7   Eduscho other      :   0  
+                                                             (Other)            :   0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       : 620   Min.   :1.000  
+ 1st Qu.:  7.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class:1465   1st Qu.:1.000  
+ Median : 10.00        Median :4.000   Median :3.000   middle class      :2508   Median :2.000  
+ Mean   : 14.79        Mean   :3.619   Mean   :2.709   upper class       :1620   Mean   :2.288  
+ 3rd Qu.: 17.00        3rd Qu.:4.000   3rd Qu.:4.000   upper middle class:1798   3rd Qu.:3.000  
+ Max.   :705.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz   Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.000   Min.   :1.000   a little                  :2083      Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:1.000   distinctly price-conscious:1182      1st Qu.:1.000  
+ Median :3.000   Median :1.000   not at all                :4376      Median :2.000  
+ Mean   :2.906   Mean   :1.795   price-conscious           : 370      Mean   :1.979  
+ 3rd Qu.:4.000   3rd Qu.:2.000                                        3rd Qu.:3.000  
+ Max.   :5.000   Max.   :4.000                                        Max.   :3.000  
+                                                                                     
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo 
+ high-school / university   :2794     Min.   :1.000   loyal    :4313  
+ intermediate high school   :2255     1st Qu.:1.000   not loyal:3698  
+ nine-year elementary school:2962     Median :1.000                   
+                                      Mean   :1.462                   
+                                      3rd Qu.:2.000                   
+                                      Max.   :2.000                   
+                                                                      
+------------------------------------------------------------------------------ 
+Brand_Name: Tchibo other
+  No_of_Packet   Price_per_Packet      IDNo          Brand                 Brand_Name   
+ Min.   :1.000   Min.   :1.000    Min.   :   8   Min.   :8   Tchibo other       :20055  
+ 1st Qu.:1.000   1st Qu.:2.000    1st Qu.:1655   1st Qu.:8   Aldi               :    0  
+ Median :1.000   Median :2.000    Median :3420   Median :8   Aldi other         :    0  
+ Mean   :1.131   Mean   :2.318    Mean   :3384   Mean   :8   Andere Kaffeemarken:    0  
+ 3rd Qu.:1.000   3rd Qu.:3.000    3rd Qu.:5043   3rd Qu.:8   Eduscho Gala       :    0  
+ Max.   :3.000   Max.   :3.000    Max.   :7251   Max.   :8   Eduscho other      :    0  
+                                                             (Other)            :    0  
+ Days_between_Purchase      Age             SEC                      SEC_Name        Income     
+ Min.   :  1.00        Min.   :1.000   Min.   :1.000   lower class       :1038   Min.   :1.000  
+ 1st Qu.:  6.00        1st Qu.:3.000   1st Qu.:2.000   lower middle class:4476   1st Qu.:1.000  
+ Median :  9.00        Median :4.000   Median :3.000   middle class      :7051   Median :2.000  
+ Mean   : 14.44        Mean   :3.714   Mean   :2.787   upper class       :3333   Mean   :2.345  
+ 3rd Qu.: 16.00        3rd Qu.:5.000   3rd Qu.:4.000   upper middle class:4157   3rd Qu.:3.000  
+ Max.   :705.00        Max.   :5.000   Max.   :5.000                             Max.   :4.000  
+                                                                                                
+  Household_Sz  Price_Conscious                 Price_Conscious_Name   Education    
+ Min.   :1.00   Min.   :1.000   a little                  : 3809     Min.   :1.000  
+ 1st Qu.:2.00   1st Qu.:1.000   distinctly price-conscious: 3749     1st Qu.:1.000  
+ Median :2.00   Median :1.000   not at all                :11776     Median :2.000  
+ Mean   :2.69   Mean   :1.823   price-conscious           :  721     Mean   :2.086  
+ 3rd Qu.:4.00   3rd Qu.:2.000                                        3rd Qu.:3.000  
+ Max.   :5.00   Max.   :4.000                                        Max.   :3.000  
+                                                                                    
+                  Education_No_of_Yrs    Loyalty        Loyalty_YesNo  
+ high-school / university   :8029     Min.   :1.000   loyal    :12881  
+ intermediate high school   :5724     1st Qu.:1.000   not loyal: 7174  
+ nine-year elementary school:6302     Median :1.000                    
+                                      Mean   :1.358                    
+                                      3rd Qu.:2.000                    
+                                      Max.   :2.000                    
+                                                                        
