@@ -13,4 +13,7 @@ barplot(table(Price_per_Packet,Brand_Name),horiz=T,xlab = "No of Coffee Packets 
 # Gives the summary by individual brand name
 by(coffee_data,INDICES = Brand_Name,FUN = summary )
 
+library()
+rpivottable(coffee_data)
+
 
